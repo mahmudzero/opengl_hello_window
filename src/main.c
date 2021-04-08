@@ -13,6 +13,22 @@ void processInput(GLFWwindow *window);
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
+void print_opengl_version() {
+    /*
+     * NOTE:
+     * ! You cannot call `glGetString` before an OpenGL Context exists
+     */
+    const char* gl_version;
+    gl_version = (const char*) glGetString(GL_VERSION);
+    printf("USING OpenGL VERSION: ");
+    int offset = 0;
+    while (*(gl_version + offset) != '\0') {
+        printf("%c", *(gl_version + offset));
+        offset = offset + 1;
+    }
+    printf("\n");
+}
+
 int main() {
     // glfw: initialize and configure
     // ------------------------------
@@ -42,6 +58,8 @@ int main() {
         printf("Failed to initialize GLAD\n");
         return -1;
     }
+
+    print_opengl_version();
 
     glClear(GL_COLOR_BUFFER_BIT);
 
